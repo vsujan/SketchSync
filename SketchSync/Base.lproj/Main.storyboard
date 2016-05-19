@@ -124,16 +124,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eKy-OG-UEp">
-                                <rect key="frame" x="32" y="32" width="536" height="556"/>
+                                <rect key="frame" x="20" y="20" width="560" height="580"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="eKy-OG-UEp" firstAttribute="leading" secondItem="OYy-96-r7v" secondAttribute="leadingMargin" constant="12" id="6ZS-q5-MFh"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="eKy-OG-UEp" secondAttribute="trailing" constant="12" id="Nf6-9x-fqN"/>
-                            <constraint firstItem="eKy-OG-UEp" firstAttribute="top" secondItem="0P8-iq-FRG" secondAttribute="bottom" constant="12" id="VbI-SE-s0Q"/>
-                            <constraint firstItem="bPQ-jT-3ow" firstAttribute="top" secondItem="eKy-OG-UEp" secondAttribute="bottom" constant="12" id="kVK-x0-cwk"/>
+                            <constraint firstItem="eKy-OG-UEp" firstAttribute="leading" secondItem="OYy-96-r7v" secondAttribute="leadingMargin" id="6ZS-q5-MFh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="eKy-OG-UEp" secondAttribute="trailing" id="Nf6-9x-fqN"/>
+                            <constraint firstItem="eKy-OG-UEp" firstAttribute="top" secondItem="0P8-iq-FRG" secondAttribute="bottom" id="VbI-SE-s0Q"/>
+                            <constraint firstItem="bPQ-jT-3ow" firstAttribute="top" secondItem="eKy-OG-UEp" secondAttribute="bottom" id="kVK-x0-cwk"/>
                         </constraints>
                     </view>
                     <connections>
