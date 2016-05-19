@@ -1,0 +1,1 @@
+This is a simple app that uses SwiftyDropBox api to list all the files from the dropbox. Further you can download the file from the list into your local directory and then view the file after being downloaded. You can upload the file as well but for now uploading is static.
