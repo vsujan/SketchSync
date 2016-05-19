@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vwI-ER-kUV">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SketchSync" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfv-rH-2sv">
+                                <rect key="frame" x="32" y="32" width="77" height="30"/>
+                                <state key="normal" title="Upload File"/>
+                                <connections>
+                                    <action selector="uploadFileAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jox-vx-3wc"/>
+                                </connections>
+                            </button>
+                            <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9XD-O7-rAx">
+                                <rect key="frame" x="26" y="74" width="542" height="514"/>
+                                <connections>
+                                    <segue destination="wrc-D1-7Ug" kind="embed" identifier="fileListTVC" id="rv3-DK-x4f"/>
+                                </connections>
+                            </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ew-J6-SIt">
+                                <rect key="frame" x="157" y="32" width="60" height="30"/>
+                                <state key="normal" title="List Files"/>
+                                <connections>
+                                    <action selector="listFilesAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cdK-O6-gCJ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jfv-rH-2sv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BdZ-0v-6yF"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="9XD-O7-rAx" secondAttribute="bottom" constant="12" id="Dvi-uX-Q2X"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="9XD-O7-rAx" secondAttribute="trailing" constant="12" id="Mo8-mA-6UC"/>
+                            <constraint firstItem="jfv-rH-2sv" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="12" id="QGe-Un-6G6"/>
+                            <constraint firstItem="9XD-O7-rAx" firstAttribute="top" secondItem="jfv-rH-2sv" secondAttribute="bottom" constant="12" id="W72-cQ-2qJ"/>
+                            <constraint firstItem="9XD-O7-rAx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="6" id="caz-kG-Iu2"/>
+                            <constraint firstItem="9ew-J6-SIt" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="12" id="gzJ-2g-ZHg"/>
+                            <constraint firstItem="jfv-rH-2sv" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="lMC-zY-614"/>
+                            <constraint firstItem="9ew-J6-SIt" firstAttribute="leading" secondItem="jfv-rH-2sv" secondAttribute="trailing" constant="48" id="noD-aq-rz1"/>
+                            <constraint firstItem="jfv-rH-2sv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="12" id="rpz-Xj-Rkx"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="BdZ-0v-6yF"/>
+                                <exclude reference="lMC-zY-614"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" id="Zhl-Mg-ZZM"/>
+                    <connections>
+                        <outlet property="fileListView" destination="9XD-O7-rAx" id="nFe-gP-LXB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="117" y="-417"/>
+        </scene>
+        <!--File List Table View Controller-->
+        <scene sceneID="Xfs-dO-Opn">
+            <objects>
+                <tableViewController id="wrc-D1-7Ug" customClass="FileListTableViewController" customModule="SketchSync" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="b7g-Q5-GOg">
+                        <rect key="frame" x="0.0" y="0.0" width="542" height="514"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="filelist" id="QR5-WN-YC3" customClass="FileNameCell" customModule="SketchSync" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="542" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QR5-WN-YC3" id="biD-y3-pjj">
+                                    <rect key="frame" x="0.0" y="0.0" width="542" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;fileName&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dsZ-ta-Z8j">
+                                            <rect key="frame" x="8" y="14" width="89" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="dsZ-ta-Z8j" firstAttribute="leading" secondItem="biD-y3-pjj" secondAttribute="leadingMargin" id="Bwq-x8-Wy3"/>
+                                        <constraint firstItem="dsZ-ta-Z8j" firstAttribute="top" secondItem="biD-y3-pjj" secondAttribute="topMargin" constant="6" id="koU-d2-gp9"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="fileName" destination="dsZ-ta-Z8j" id="Mof-HV-0Y1"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="wrc-D1-7Ug" id="xA2-FY-wdb"/>
+                            <outlet property="delegate" destination="wrc-D1-7Ug" id="IBK-ZV-rDN"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qcv-M1-sL1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="806" y="-743"/>
+        </scene>
+        <!--File View Controller-->
+        <scene sceneID="6Fi-4q-WIZ">
+            <objects>
+                <viewController storyboardIdentifier="fileViewController" id="2hZ-QN-MMV" customClass="FileViewController" customModule="SketchSync" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0P8-iq-FRG"/>
+                        <viewControllerLayoutGuide type="bottom" id="bPQ-jT-3ow"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="OYy-96-r7v">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eKy-OG-UEp">
+                                <rect key="frame" x="32" y="32" width="536" height="556"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="eKy-OG-UEp" firstAttribute="leading" secondItem="OYy-96-r7v" secondAttribute="leadingMargin" constant="12" id="6ZS-q5-MFh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="eKy-OG-UEp" secondAttribute="trailing" constant="12" id="Nf6-9x-fqN"/>
+                            <constraint firstItem="eKy-OG-UEp" firstAttribute="top" secondItem="0P8-iq-FRG" secondAttribute="bottom" constant="12" id="VbI-SE-s0Q"/>
+                            <constraint firstItem="bPQ-jT-3ow" firstAttribute="top" secondItem="eKy-OG-UEp" secondAttribute="bottom" constant="12" id="kVK-x0-cwk"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="eKy-OG-UEp" id="eZm-Xi-zzk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1OT-fM-Jzx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="835" y="-40"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="SQu-IF-Mau">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vwI-ER-kUV" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="b0c-1a-LB7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="i06-ge-EdC"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bFh-r3-gPv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-695" y="-417"/>
+        </scene>
+    </scenes>
+</document>
