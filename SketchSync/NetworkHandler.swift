@@ -3,11 +3,13 @@ import SwiftyDropbox
 
 class NetworkHandler {
     
-    class func uploadFile (client: DropboxClient, uploadComplete: (Bool) -> Void  ) {
+    var tempFiles: [Files.FileMetadata] = []
+    
+    func uploadFile (client: DropboxClient, uploadComplete: (Bool) -> Void  ) {
         
             UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             let fileData = "this is the new file!".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
-            client.files.upload(path: "/myProject/myfile.txt", body: fileData!).response {
+            client.files.upload(path: "/myProject/myfile1.txt", body: fileData!).response {
                 response, error in
                     if let metadata = response {
                         print("Uploaded file name: \(metadata.name)")
@@ -16,42 +18,62 @@ class NetworkHandler {
                     }
                  uploadComplete(true)
             }
-        
     }
     
-    class func listFiles(client: DropboxClient, files: [ProjectFile], completionHandler: ([ProjectFile]) -> Void){
+    func listFiles(client: DropboxClient, files: [ProjectFile], completionHandler: ([ProjectFile]) -> Void){
         
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        client.files.listFolder(path: "", recursive: true, includeMediaInfo: true, includeDeleted: false).response { (response, error) in
+        client.files.listFolder(path: "").response { (mainResponse, error) in
             var file: ProjectFile!
-                var newFiles: [ProjectFile] = []
-                if let result = response {
-                    let docURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first // path to the local directory where the file resides
-                     for entry in result.entries {
-                        var isDownloaded = false
-                        if files.count == 0 { // if no file is downloaded, all files from dropbox is added to the newFiles array
-                            file = ProjectFile(name: entry.name, path_lower: entry.pathLower, isDownloaded: isDownloaded, docURL: (docURL?.URLByAppendingPathComponent(entry.name))! )
-                            newFiles.append(file)
-                        } else {
-                            for fileInList in files {
-                                if (entry.name == fileInList.name) { // if file is already downloaded
-                                    isDownloaded = true
-                                    break
-                                } else {
-                                    isDownloaded = false
-                                }
+            var newFiles: [ProjectFile] = []
+            if let mainResult = mainResponse {
+                let docURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first
+                for mainEntry in mainResult.entries {
+                    var path = ""
+                    client.files.getMetadata(path: mainEntry.pathLower).response { response, error in
+                        if let metadata = response {
+                            if let file = metadata as? Files.FileMetadata {
+                                print("This is a file with path: \(file.pathLower)")
+                                self.tempFiles.append(file)
+                                print(self.tempFiles)
+                            } else if let folder = metadata as? Files.FolderMetadata {
+                                print("This is a folder with path: \(folder.pathLower)")
+                                self.iterateFolder(client, folder: folder) //{ file in
                             }
-                            file = ProjectFile(name: entry.name, path_lower: entry.pathLower, isDownloaded: isDownloaded, docURL: (docURL?.URLByAppendingPathComponent(entry.name))! )
-                            newFiles.append(file)
+                        }
+                        if (self.tempFiles.count > 0) {
+                            print("here")
                         }
                     }
-                    completionHandler(newFiles)
-                } else {
-                    print(error!)
                 }
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            }
+            
         }
         
     }
-        
+    
+    func iterateFolder (client: DropboxClient, folder: Files.FolderMetadata) {
+        var pathOfFolder = folder.pathLower
+        client.files.listFolder(path: pathOfFolder).response { (response, error) in
+            if let result = response {
+                for entry in result.entries {
+                    client.files.getMetadata(path: entry.pathLower).response { response, error in
+                        if let metadata = response {
+                            if let file = metadata as? Files.FileMetadata {
+                                print("This is a file with path: \(file.pathLower)")
+                                self.tempFiles.append(file)
+                            } else if let folder = metadata as? Files.FolderMetadata {
+                                print("This is a folder with path: \(folder.pathLower)")
+                                self.iterateFolder(client, folder: folder)
+                            }
+                        }
+                        if (self.tempFiles.count > 0) {
+                            print("here")
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
 }

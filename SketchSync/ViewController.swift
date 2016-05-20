@@ -10,6 +10,7 @@ class ViewController: UIViewController, FileListTableViewControllerDelegate {
     var filelistTVC: FileListTableViewController!
     var fileViewer: FileViewController!
     
+    var handleNetwork = NetworkHandler()
     let fileHandler = FileHandler()
     
     override func viewDidLoad() {
@@ -27,7 +28,7 @@ class ViewController: UIViewController, FileListTableViewControllerDelegate {
             print("User is already authorized!")
         }
         if let client = Dropbox.authorizedClient { // if the client is authorized
-            NetworkHandler.uploadFile(client) { //call to a function to upload a file and as a return value check if update is complete
+            handleNetwork.uploadFile(client) { //call to a function to upload a file and as a return value check if update is complete
                 uploadComplete in
                     print("upload complete")
             }
@@ -46,7 +47,7 @@ class ViewController: UIViewController, FileListTableViewControllerDelegate {
         
         //call to a function to list the files from the dropbox and as a return value gets an array of files from dropbox
         if let client = Dropbox.authorizedClient {
-            NetworkHandler.listFiles(client, files: self.filelistTVC.files) {
+            handleNetwork.listFiles(client, files: self.filelistTVC.files) {
                 files in
                     self.filelistTVC.files = files
                     self.filelistTVC.tableView.reloadData()
