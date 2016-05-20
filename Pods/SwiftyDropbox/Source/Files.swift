@@ -221,7 +221,7 @@ public class Files {
         /// The lowercased full path in the user's Dropbox. This always starts with a slash.
         public let pathLower : String
         /// Deprecated. Please use :field:'FileSharingInfo.parent_shared_folder_id' or
-        /// :field:'FolderSharingInfo.parent_shared_folder_id' instead.
+        /// :field'FolderSharingInfo.parent_shared_folder_id' instead.
         public let parentSharedFolderId : String?
         public init(name: String, pathLower: String, parentSharedFolderId: String? = nil) {
             stringValidator()(value: name)
