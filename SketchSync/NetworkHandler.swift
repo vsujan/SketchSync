@@ -23,38 +23,44 @@ class NetworkHandler {
     func listFiles(client: DropboxClient, files: [ProjectFile], completionHandler: ([ProjectFile]) -> Void){
         
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        client.files.listFolder(path: "").response { (mainResponse, error) in
-            var file: ProjectFile!
-            var newFiles: [ProjectFile] = []
-            if let mainResult = mainResponse {
-                let docURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first
-                for mainEntry in mainResult.entries {
-                    var path = ""
-                    client.files.getMetadata(path: mainEntry.pathLower).response { response, error in
-                        if let metadata = response {
-                            if let file = metadata as? Files.FileMetadata {
-                                print("This is a file with path: \(file.pathLower)")
-                                self.tempFiles.append(file)
-                                print(self.tempFiles)
-                            } else if let folder = metadata as? Files.FolderMetadata {
-                                print("This is a folder with path: \(folder.pathLower)")
-                                self.iterateFolder(client, folder: folder) //{ file in
-                            }
-                        }
-                        if (self.tempFiles.count > 0) {
-                            print("here")
-                        }
-                    }
-                }
-            }
-            
-        }
-        
+//        client.files.listFolder(path: "").response { (mainResponse, error) in
+//            
+////            var file: ProjectFile!
+////            var newFiles: [ProjectFile] = []
+//            
+//            if let mainResult = mainResponse {
+//                
+////                let docURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first
+//                for mainEntry in mainResult.entries {
+//                    
+//                    client.files.getMetadata(path: mainEntry.pathLower).response { response, error in
+//                   
+//                        if let metadata = response {
+//                            
+//                            if let file = metadata as? Files.FileMetadata {
+//                                print("This is a file with path: \(file.pathLower)")
+//                                self.tempFiles.append(file)
+//                                print(self.tempFiles)
+//                            } else if let folder = metadata as? Files.FolderMetadata {
+//                                print("This is a folder with path: \(folder.pathLower)")
+//                                self.iterateFolder(client, folder: folder) //{ file in
+//                            }
+//                        }
+//                        
+//                    }
+//                }
+//            }
+//            
+//        }
+        let pathOfFolder = ""
+        iterateFolder(client, path: pathOfFolder)
+
+        print("Should be called at last")
     }
     
-    func iterateFolder (client: DropboxClient, folder: Files.FolderMetadata) {
-        var pathOfFolder = folder.pathLower
-        client.files.listFolder(path: pathOfFolder).response { (response, error) in
+    func iterateFolder (client: DropboxClient, path: String) {
+        
+        client.files.listFolder(path: path).response { (response, error) in
             if let result = response {
                 for entry in result.entries {
                     client.files.getMetadata(path: entry.pathLower).response { response, error in
@@ -64,15 +70,15 @@ class NetworkHandler {
                                 self.tempFiles.append(file)
                             } else if let folder = metadata as? Files.FolderMetadata {
                                 print("This is a folder with path: \(folder.pathLower)")
-                                self.iterateFolder(client, folder: folder)
+                                self.iterateFolder(client, path: folder.pathLower)
                             }
                         }
-                        if (self.tempFiles.count > 0) {
-                            print("here")
-                        }
                     }
+                print("inside for loop")
                 }
+                print("inside if")
             }
+            
         }
     }
     
